@@ -1,0 +1,31 @@
+.game-container {
+  background-color: #1e1e1e;
+  border-radius: 2px;
+  padding: 1rem;
+  width: 100%;
+  min-height: 15rem;
+  margin-bottom: 2rem;
+
+  &__backet {
+    width: 60px;
+    height: 52px;
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    span {
+      color: black;
+      font-size: 30px;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

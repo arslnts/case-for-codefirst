@@ -1,0 +1,80 @@
+.header {
+  height: 80px;
+  width: 100%;
+  padding: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    width: 90%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    flex: 0 0 27%;
+  }
+
+  &__button {
+    width: 185px;
+    height: 40px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background-color: #76b900;
+    color: white;
+    font-weight: bold;
+    outline: 0;
+    cursor: pointer;
+  }
+
+  &__button:hover {
+    background-color: #5c9100;
+  }
+}
+
+.navigation {
+  flex: 0 0 60%;
+
+  &__list {
+    list-style: none;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  &__link {
+    padding: 1rem 2rem;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+
+    position: relative;
+  }
+
+  &__link:hover,
+  &__link:active {
+    color: #76b900;
+  }
+
+  &__link::before {
+    opacity: 0;
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    transition: all 0.2s;
+
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #76b900;
+  }
+
+  &__link:hover::before {
+    opacity: 1;
+  }
+}

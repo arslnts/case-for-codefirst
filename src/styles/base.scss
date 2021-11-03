@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "GreycliffCF";
+  src: url(../fonts/GreycliffCF/GreycliffCF-Regular.woff);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: "GreycliffCF";
+  font-weight: 400;
+  line-height: 1.5;
+  /*color: $color-font-1;*/
+}

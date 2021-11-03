@@ -1,0 +1,27 @@
+.searchbox-container {
+  position: relative;
+  input {
+    font-size: 20px;
+    width: 35rem;
+    padding: 1rem;
+    border-radius: 2px;
+    outline: none;
+    text-indent: 18px;
+  }
+
+  input::placeholder {
+    color: rgb(146, 146, 146);
+  }
+  label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-40%);
+  }
+
+  svg {
+    fill: rgb(146, 146, 146);
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+}

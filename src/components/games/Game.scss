@@ -1,0 +1,28 @@
+.game {
+  width: 100%;
+  margin: 2rem 0;
+
+  &__name {
+    font-size: 20px;
+    color: rgb(194, 194, 194);
+  }
+  &__description {
+    font-size: 17px;
+    color: rgb(143, 143, 143);
+    white-space: pre-wrap;
+  }
+  &__genre,
+  &__state {
+    font-size: 14px;
+    color: rgb(189, 189, 189);
+  }
+  &__state {
+    margin-right: 1rem;
+  }
+
+  &__sub-container {
+    padding-right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

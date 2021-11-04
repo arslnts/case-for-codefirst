@@ -54,8 +54,13 @@ const Checkbox = ({ name, getCheckedName }) => {
         let filtGames = stateGames.filter((element) =>
           genreGames.includes(element)
         );
-
-        gameCtx.setFilteredGames(filtGames);
+        if (filtGames.length > 0) {
+          gameCtx.setFilteredGames(filtGames);
+          gameCtx.fetchError("");
+        } else {
+          gameCtx.setFilteredGames([]);
+          gameCtx.fetchError("No Content");
+        }
       }
     } else {
       if (
@@ -94,16 +99,20 @@ const Checkbox = ({ name, getCheckedName }) => {
           genreGames.includes(element)
         );
         gameCtx.setFilteredGames(filtGames);
+        // gameCtx.fetchError("");
+        console.log("run");
       }
 
       if (gameCtx.stateGames.length > 0 && gameCtx.genreGames.length === 0) {
+        // gameCtx.fetchError("");
         gameCtx.setFilteredGames(stateGames);
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length > 0) {
+        // gameCtx.fetchError("");
         gameCtx.setFilteredGames(genreGames);
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length === 0) {
-        console.log("runnnnnn");
+        // gameCtx.fetchError("");
         gameCtx.setFilteredGames([]);
       }
     }

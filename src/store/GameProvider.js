@@ -74,7 +74,7 @@ const gamesReducer = (state, action) => {
     return {
       ...state,
       loading: false,
-      error: "Something Went Wrong",
+      error: action.error,
     };
   }
 };
@@ -109,8 +109,8 @@ const GamesProvider = ({ children }) => {
     dispatchGamesAction({ type: "SETDUPLICATEELEMENTS", data: data });
   };
 
-  const fetchError = (value) => {
-    dispatchGamesAction({ type: "FETCHERROR" });
+  const fetchError = (error) => {
+    dispatchGamesAction({ type: "FETCHERROR", error: error });
   };
 
   const gamesContext = {

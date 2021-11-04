@@ -40,17 +40,18 @@ const HomaPage = () => {
     ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
     let newLetters = Array.from(letters);
     getContent(newLetters);
-  } else if (
-    ctx.searchValue &&
-    ![...ctx.firstLetters].includes(ctx.searchValue.charAt(0))
-  ) {
-    content = "No Content";
+
+    console.log("run1");
   } else if (ctx.searchValue) {
     let searchValue = [ctx.searchValue];
     getContent(searchValue);
+    console.log("run3");
   } else {
-    let searchValue = [...ctx.firstLetters];
-    getContent(searchValue);
+    if (!ctx.error) {
+      let searchValue = [...ctx.firstLetters];
+      getContent(searchValue);
+      console.log("run4");
+    }
   }
 
   const getCheckedStates = (st) => {
@@ -59,9 +60,9 @@ const HomaPage = () => {
   const getCheckedGenres = (genre) => {
     setCheckedGenres([...checkedGenres, genre]);
   };
-  console.log("Genre Games", ctx.genreGames);
-  console.log("State Games", ctx.stateGames);
-  console.log("filtered GAMES", ctx.filteredGames);
+  console.log("stateGames", ctx.stateGames);
+  console.log("genreGames", ctx.genreGames);
+  console.log("filtered Games", ctx.filteredGames);
   return (
     <Layout>
       <div className="homepage-container">
@@ -126,8 +127,7 @@ const HomaPage = () => {
             <div className="homepage-container__bottom-right">
               <SelectSorting />
               <div className="homepage-container__games">
-                {ctx.loading ? <Spinner /> : content}
-                {ctx.error ? ctx.error : null}
+                {ctx.error ? ctx.error : ctx.loading ? <Spinner /> : content}
               </div>
             </div>
           </div>

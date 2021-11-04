@@ -40,17 +40,20 @@ const HomaPage = () => {
     ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
     let newLetters = Array.from(letters);
     getContent(newLetters);
-
-    console.log("run1");
-  } else if (ctx.searchValue) {
+  } else if (ctx.searchValue && ctx.filteredGames.length > 0) {
     let searchValue = [ctx.searchValue];
+
+    // let letters = new Set();
+    // ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
+    // let newLetters = Array.from(letters);
+    // getContent(newLetters);
+
+    console.log("run");
     getContent(searchValue);
-    console.log("run3");
   } else {
     if (!ctx.error) {
       let searchValue = [...ctx.firstLetters];
       getContent(searchValue);
-      console.log("run4");
     }
   }
 
@@ -63,6 +66,7 @@ const HomaPage = () => {
   console.log("stateGames", ctx.stateGames);
   console.log("genreGames", ctx.genreGames);
   console.log("filtered Games", ctx.filteredGames);
+  console.log("duplicate", ctx.duplicateElements);
   return (
     <Layout>
       <div className="homepage-container">

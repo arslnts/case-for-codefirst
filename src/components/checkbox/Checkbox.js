@@ -19,48 +19,52 @@ const Checkbox = ({ name, getCheckedName }) => {
       ) {
         Object.values(gameCtx.games).forEach((game) => {
           if (game.state.includes(name)) {
-            filteredGames.push(game);
             stateGames.push(game);
           }
         });
 
         gameCtx.setStateGames(stateGames);
-        gameCtx.setFilteredGames(filteredGames);
       } else {
         Object.values(gameCtx.games).forEach((game) => {
           if (game.genre.includes(name)) {
-            filteredGames.push(game);
+            // filteredGames.push(game);
             genreGames.push(game);
           }
         });
 
-        const toFindDuplicates = (filteredGames) =>
-          filteredGames.filter(
-            (item, index) => filteredGames.indexOf(item) !== index
+        const toFindDuplicates = (genreGames) =>
+          genreGames.filter(
+            (item, index) => genreGames.indexOf(item) !== index
           );
-        const duplicateElements = toFindDuplicates(filteredGames);
+        const duplicateElements = toFindDuplicates(genreGames);
         gameCtx.setDuplicateElements(duplicateElements);
 
-        const ids = filteredGames.map((g) => g.id);
-        const newFilteredGames = filteredGames.filter(
+        const ids = genreGames.map((g) => g.id);
+        const newGenreGames = genreGames.filter(
           ({ id }, index) => !ids.includes(id, index + 1)
         );
 
-        gameCtx.setGenreGames(genreGames);
-        gameCtx.setFilteredGames(newFilteredGames);
+        gameCtx.setGenreGames(newGenreGames);
+        // gameCtx.setFilteredGames(newGenreGames);
       }
 
       if (stateGames.length > 0 && genreGames.length > 0) {
-        let filtGames = stateGames.filter((element) =>
+        let sameGames = stateGames.filter((element) =>
           genreGames.includes(element)
         );
-        if (filtGames.length > 0) {
-          gameCtx.setFilteredGames(filtGames);
+        if (sameGames) {
+          gameCtx.setFilteredGames(sameGames);
           gameCtx.fetchError("");
         } else {
-          gameCtx.setFilteredGames([]);
           gameCtx.fetchError("No Content");
         }
+      }
+
+      if (stateGames.length > 0 && genreGames.length === 0) {
+        gameCtx.setFilteredGames(stateGames);
+      }
+      if (stateGames.length === 0 && genreGames.length > 0) {
+        gameCtx.setFilteredGames(genreGames);
       }
     } else {
       if (
@@ -72,7 +76,7 @@ const Checkbox = ({ name, getCheckedName }) => {
           if (game.state.includes(name)) {
             const index = stateGames.indexOf(game);
 
-            filteredGames.splice(index, 1);
+            // filteredGames.splice(index, 1);
             stateGames.splice(index, 1);
           }
           gameCtx.setStateGames(stateGames);
@@ -83,14 +87,16 @@ const Checkbox = ({ name, getCheckedName }) => {
           if (game.genre.includes(name)) {
             const index = genreGames.indexOf(game);
             if (genreGames.includes(game)) {
+              genreGames.splice(index, 1);
             }
-            filteredGames.splice(index, 1);
-            genreGames.splice(index, 1);
           }
         });
+        if (gameCtx.duplicateElements) {
+          genreGames.push(...gameCtx.duplicateElements);
+          gameCtx.setDuplicateElements([]);
+        }
 
-        filteredGames.push(...gameCtx.duplicateElements);
-        gameCtx.setFilteredGames(filteredGames);
+        console.log(genreGames);
         gameCtx.setGenreGames(genreGames);
       }
 
@@ -99,15 +105,17 @@ const Checkbox = ({ name, getCheckedName }) => {
           genreGames.includes(element)
         );
         gameCtx.setFilteredGames(filtGames);
-        // gameCtx.fetchError("");
-        console.log("run");
+        gameCtx.fetchError("");
+        console.log("run1");
       }
 
       if (gameCtx.stateGames.length > 0 && gameCtx.genreGames.length === 0) {
-        // gameCtx.fetchError("");
+        console.log("run2");
+        gameCtx.fetchError("");
         gameCtx.setFilteredGames(stateGames);
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length > 0) {
+        console.log("run3");
         // gameCtx.fetchError("");
         gameCtx.setFilteredGames(genreGames);
       }

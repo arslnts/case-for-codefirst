@@ -42,24 +42,29 @@ const Checkbox = ({ name, getCheckedName }) => {
         genreGames = genreGames.filter(
           ({ id }, index) => !ids.includes(id, index + 1)
         );
-        console.log("----new----", genreGames);
+
         gameCtx.setGenreGames(genreGames);
+        gameCtx.fetchError("");
       }
 
       if (stateGames.length > 0 && genreGames.length > 0) {
         let sameGames = stateGames.filter((element) =>
           genreGames.includes(element)
         );
-        if (sameGames) {
+        if (sameGames.length > 0) {
+          console.log("----run1----");
           gameCtx.setFilteredGames(sameGames);
-          gameCtx.fetchError("");
+          // gameCtx.fetchError("");
         } else {
+          console.log("----run2----");
           gameCtx.fetchError("No Content");
+          gameCtx.setFilteredGames([]);
         }
       }
 
       if (stateGames.length > 0 && genreGames.length === 0) {
         gameCtx.setFilteredGames(stateGames);
+        console.log("----run2----");
       }
       if (stateGames.length === 0 && genreGames.length > 0) {
         console.log("---genregames---", genreGames);
@@ -74,8 +79,6 @@ const Checkbox = ({ name, getCheckedName }) => {
         Object.values(filteredGames).forEach((game) => {
           if (game.state.includes(name)) {
             const index = stateGames.indexOf(game);
-
-            // filteredGames.splice(index, 1);
             stateGames.splice(index, 1);
           }
           gameCtx.setStateGames(stateGames);
@@ -95,7 +98,6 @@ const Checkbox = ({ name, getCheckedName }) => {
           gameCtx.setDuplicateElements([]);
         }
 
-        console.log(genreGames);
         gameCtx.setGenreGames(genreGames);
       }
 
@@ -103,23 +105,28 @@ const Checkbox = ({ name, getCheckedName }) => {
         let filtGames = stateGames.filter((element) =>
           genreGames.includes(element)
         );
+
+        if (filtGames.length === 0) {
+          gameCtx.fetchError("No Content!");
+        }
         gameCtx.setFilteredGames(filtGames);
-        gameCtx.fetchError("");
-        console.log("run1");
+
+        console.log("----run0----");
       }
 
       if (gameCtx.stateGames.length > 0 && gameCtx.genreGames.length === 0) {
-        console.log("run2");
         gameCtx.fetchError("");
         gameCtx.setFilteredGames(stateGames);
+        console.log("----run1----");
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length > 0) {
-        console.log("run3");
-        // gameCtx.fetchError("");
+        console.log("----run2----");
+        gameCtx.fetchError("");
         gameCtx.setFilteredGames(genreGames);
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length === 0) {
-        // gameCtx.fetchError("");
+        console.log("----run3----");
+        gameCtx.fetchError("");
         gameCtx.setFilteredGames([]);
       }
     }

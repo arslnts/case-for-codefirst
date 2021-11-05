@@ -11,6 +11,7 @@ import Spinner from "../components/spinner/Spinner";
 
 const HomaPage = () => {
   const ctx = useContext(GamesContext);
+
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [checkedGenres, setCheckedGenres] = useState([]);
   const [checkedStates, setCheckedStates] = useState([]);
@@ -45,6 +46,7 @@ const HomaPage = () => {
     let letters = new Set();
     ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
     let newLetters = Array.from(letters).map((v) => v.toLowerCase());
+
     if (newLetters.includes(searchValue.toLowerCase())) {
       getContent([searchValue]);
     } else {
@@ -52,6 +54,7 @@ const HomaPage = () => {
       getContent([searchValue]);
     }
   } else if (ctx.searchValue && !ctx.filteredGames.length > 0) {
+    console.log("----run-son1----");
     let searchValue = ctx.searchValue;
     console.log(searchValue);
 
@@ -81,7 +84,8 @@ const HomaPage = () => {
   console.log("stateGames", ctx.stateGames);
   console.log("genreGames", ctx.genreGames);
   console.log("filtered Games", ctx.filteredGames);
-  console.log("duplicate", ctx.duplicateElements);
+  console.log("error", ctx.error);
+  // console.log("duplicate", ctx.duplicateElements);
   return (
     <Layout>
       <div className="homepage-container">

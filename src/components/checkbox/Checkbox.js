@@ -5,8 +5,8 @@ import "./Checkbox.scss";
 const Checkbox = ({ name, getCheckedName }) => {
   const gameCtx = useContext(GamesContext);
   const filteredGames = gameCtx.filteredGames;
-  const stateGames = gameCtx.stateGames;
-  const genreGames = gameCtx.genreGames;
+  let stateGames = gameCtx.stateGames;
+  let genreGames = gameCtx.genreGames;
 
   const changeHandler = (e) => {
     if (e.target.checked) {
@@ -27,7 +27,6 @@ const Checkbox = ({ name, getCheckedName }) => {
       } else {
         Object.values(gameCtx.games).forEach((game) => {
           if (game.genre.includes(name)) {
-            // filteredGames.push(game);
             genreGames.push(game);
           }
         });
@@ -40,12 +39,11 @@ const Checkbox = ({ name, getCheckedName }) => {
         gameCtx.setDuplicateElements(duplicateElements);
 
         const ids = genreGames.map((g) => g.id);
-        const newGenreGames = genreGames.filter(
+        genreGames = genreGames.filter(
           ({ id }, index) => !ids.includes(id, index + 1)
         );
-
-        gameCtx.setGenreGames(newGenreGames);
-        // gameCtx.setFilteredGames(newGenreGames);
+        console.log("----new----", genreGames);
+        gameCtx.setGenreGames(genreGames);
       }
 
       if (stateGames.length > 0 && genreGames.length > 0) {
@@ -64,6 +62,7 @@ const Checkbox = ({ name, getCheckedName }) => {
         gameCtx.setFilteredGames(stateGames);
       }
       if (stateGames.length === 0 && genreGames.length > 0) {
+        console.log("---genregames---", genreGames);
         gameCtx.setFilteredGames(genreGames);
       }
     } else {

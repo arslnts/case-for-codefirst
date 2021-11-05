@@ -31,6 +31,7 @@ const HomaPage = () => {
   }, [setIsDataLoading]);
 
   const getContent = (searchValue) => {
+    //Array from eklenecek
     content = searchValue.map((letter, i) => <Games key={i} letter={letter} />);
     return content;
   };
@@ -41,15 +42,19 @@ const HomaPage = () => {
     let newLetters = Array.from(letters);
     getContent(newLetters);
   } else if (ctx.searchValue && ctx.filteredGames.length > 0) {
-    let searchValue = [ctx.searchValue];
+    let searchValue = ctx.searchValue;
 
-    // let letters = new Set();
-    // ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
-    // let newLetters = Array.from(letters);
-    // getContent(newLetters);
+    let letters = new Set();
+    ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
+    let newLetters = Array.from(letters).map((v) => v.toLowerCase());
 
-    console.log("run");
-    getContent(searchValue);
+    if (newLetters.includes(searchValue.toLowerCase())) {
+      getContent([searchValue]);
+    }
+    // veri yoksaeklenecek
+  } else if (ctx.searchValue && !ctx.filteredGames.length > 0) {
+    getContent([ctx.searchValue]);
+    // veri yoksaeklenecek
   } else {
     if (!ctx.error) {
       let searchValue = [...ctx.firstLetters];

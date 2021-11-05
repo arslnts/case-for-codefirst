@@ -43,7 +43,7 @@ const gamesReducer = (state, action) => {
       firstLetters: firstLetters,
     };
   }
-  if (action.type === "SETENTEREDVALUE") {
+  if (action.type === "SETSEARCHVALUE") {
     const searchValue = action.value;
     return {
       ...state,
@@ -96,7 +96,7 @@ const GamesProvider = ({ children }) => {
     dispatchGamesAction({ type: "SETFIRSTLETTERS", data: data });
   };
   const setEnteredValue = (value) => {
-    dispatchGamesAction({ type: "SETENTEREDVALUE", value: value });
+    dispatchGamesAction({ type: "SETSEARCHVALUE", value: value });
   };
 
   const setStateGames = (data) => {

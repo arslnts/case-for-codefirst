@@ -14,7 +14,6 @@ const HomaPage = () => {
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [checkedGenres, setCheckedGenres] = useState([]);
   const [checkedStates, setCheckedStates] = useState([]);
-
   let content;
   useEffect(() => {
     console.log("useeffect run");
@@ -43,23 +42,34 @@ const HomaPage = () => {
     getContent(newLetters);
   } else if (ctx.searchValue && ctx.filteredGames.length > 0) {
     let searchValue = ctx.searchValue;
-
     let letters = new Set();
     ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
     let newLetters = Array.from(letters).map((v) => v.toLowerCase());
-
     if (newLetters.includes(searchValue.toLowerCase())) {
       getContent([searchValue]);
+    } else {
+      searchValue = "";
+      getContent([searchValue]);
     }
-    // veri yoksaeklenecek
   } else if (ctx.searchValue && !ctx.filteredGames.length > 0) {
-    getContent([ctx.searchValue]);
-    // veri yoksaeklenecek
-  } else {
-    if (!ctx.error) {
-      let searchValue = [...ctx.firstLetters];
-      getContent(searchValue);
+    let searchValue = ctx.searchValue;
+    console.log(searchValue);
+
+    // Tipi kontrol edilecek
+    const newGames = Object.values(ctx.games).filter((g) =>
+      g.name.toLowerCase().startsWith(searchValue)
+    );
+    console.log("---newGames---", newGames);
+
+    if (newGames.length > 0) {
+      getContent([searchValue]);
+    } else {
+      searchValue = "";
+      getContent([searchValue]);
     }
+  } else {
+    let searchValue = [...ctx.firstLetters];
+    getContent(searchValue);
   }
 
   const getCheckedStates = (st) => {

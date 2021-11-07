@@ -52,11 +52,8 @@ const Checkbox = ({ name, getCheckedName }) => {
           genreGames.includes(element)
         );
         if (sameGames.length > 0) {
-          console.log("----run1----");
           gameCtx.setFilteredGames(sameGames);
-          // gameCtx.fetchError("");
         } else {
-          console.log("----run2----");
           gameCtx.fetchError("No Content");
           gameCtx.setFilteredGames([]);
         }
@@ -64,10 +61,8 @@ const Checkbox = ({ name, getCheckedName }) => {
 
       if (stateGames.length > 0 && genreGames.length === 0) {
         gameCtx.setFilteredGames(stateGames);
-        console.log("----run2----");
       }
       if (stateGames.length === 0 && genreGames.length > 0) {
-        console.log("---genregames---", genreGames);
         gameCtx.setFilteredGames(genreGames);
       }
     } else {
@@ -76,7 +71,7 @@ const Checkbox = ({ name, getCheckedName }) => {
         name === "Patching" ||
         name === "Available"
       ) {
-        Object.values(filteredGames).forEach((game) => {
+        Object.values(gameCtx.games).forEach((game) => {
           if (game.state.includes(name)) {
             const index = stateGames.indexOf(game);
             stateGames.splice(index, 1);
@@ -110,22 +105,17 @@ const Checkbox = ({ name, getCheckedName }) => {
           gameCtx.fetchError("No Content!");
         }
         gameCtx.setFilteredGames(filtGames);
-
-        console.log("----run0----");
       }
 
       if (gameCtx.stateGames.length > 0 && gameCtx.genreGames.length === 0) {
         gameCtx.fetchError("");
         gameCtx.setFilteredGames(stateGames);
-        console.log("----run1----");
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length > 0) {
-        console.log("----run2----");
         gameCtx.fetchError("");
         gameCtx.setFilteredGames(genreGames);
       }
       if (gameCtx.stateGames.length === 0 && gameCtx.genreGames.length === 0) {
-        console.log("----run3----");
         gameCtx.fetchError("");
         gameCtx.setFilteredGames([]);
       }

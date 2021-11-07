@@ -12,6 +12,7 @@ const GamesContext = createContext({
   stateGames: [],
   genreGames: [],
   duplicateElements: [],
+  selectedSortingValue: "",
   setAllGames: (d) => {},
   setFilteredGames: (d) => {},
   setFirstLetters: () => {},
@@ -21,6 +22,7 @@ const GamesContext = createContext({
   setGenreGames: (d) => {},
   setDuplicateElements: (d) => {},
   fetchError: () => {},
+  setSelectedSortingValue: (v) => {},
 });
 
 export default GamesContext;

@@ -9,29 +9,43 @@ const Footer = () => {
           <nav className="footer__navigation">
             <ul className="footer__navigation-list">
               <li>
-                <a className="footer__navigation-link">Games</a>
+                <a href="/#" className="footer__navigation-link">
+                  Games
+                </a>
               </li>
               <li>
-                <a className="footer__navigation-link">Membership</a>
+                <a href="/#" className="footer__navigation-link">
+                  Membership
+                </a>
               </li>
               <li>
-                <a className="footer__navigation-link">Download</a>
-              </li>
-            </ul>
-            <ul className="footer__navigation-list">
-              <li>
-                <a className="footer__navigation-link">Contact us</a>
-              </li>
-              <li>
-                <a className="footer__navigation-link">Blog</a>
+                <a href="/#" className="footer__navigation-link">
+                  Download
+                </a>
               </li>
             </ul>
             <ul className="footer__navigation-list">
               <li>
-                <a className="footer__navigation-link">FAQs</a>
+                <a href="/#" className="footer__navigation-link">
+                  Contact us
+                </a>
               </li>
               <li>
-                <a className="footer__navigation-link">Service Status</a>
+                <a href="/#" className="footer__navigation-link">
+                  Blog
+                </a>
+              </li>
+            </ul>
+            <ul className="footer__navigation-list">
+              <li>
+                <a href="/#" className="footer__navigation-link">
+                  FAQs
+                </a>
+              </li>
+              <li>
+                <a href="/#" className="footer__navigation-link">
+                  Service Status
+                </a>
               </li>
             </ul>
           </nav>
@@ -39,44 +53,34 @@ const Footer = () => {
           <div className="footer__top-container">
             <p>Follow Us!</p>
             <div className="footer__social-media">
-              <a>
+              <a href="/#">
                 <FaFacebookF />
               </a>
-              <a>
+              <a href="/#">
                 <FaTwitter />
               </a>
-              <a>
+              <a href="/#">
                 <FaInstagram />
               </a>
-              <a>
+              <a href="/#">
                 <FaYoutube />
               </a>
             </div>
           </div>
           <div className="footer__top-container">
             <p>Site Language</p>
-            <ul className="footer__social-media">
-              <li>
-                <a>Games</a>
-              </li>
-              <li>
-                <a>Membership</a>
-              </li>
-              <li>
-                <a>Download</a>
-              </li>
-              <li>
-                <a>Blog</a>
-              </li>
-            </ul>
+            <select className="footer__site-language">
+              <option value="turkce">Türkce</option>
+              <option value="english">English</option>
+            </select>
           </div>
         </div>
         <div className="footer__bottom">
           <div className="footer__bottom-container">
             <nav className="footer__bottom-nav">
-              <a>Terms of Use</a>
-              <a>Privacy Policy</a>
-              <a>Cookies</a>
+              <a href="/#">Terms of Use</a>
+              <a href="/#">Privacy Policy</a>
+              <a href="/#">Cookies</a>
             </nav>
             <p>Tüm hakları saklıdır</p>
           </div>

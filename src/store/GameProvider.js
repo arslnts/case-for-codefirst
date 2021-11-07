@@ -7,11 +7,11 @@ const defaultGamesState = {
   error: "",
   filteredGames: [],
   firstLetters: [],
-  gamesToFirstLetter: [],
   searchValue: "",
   genreGames: [],
   stateGames: [],
   duplicateElements: [],
+  selectedSortingValue: "",
 };
 
 const gamesReducer = (state, action) => {
@@ -77,6 +77,13 @@ const gamesReducer = (state, action) => {
       error: action.error,
     };
   }
+
+  if (action.type === "SELECTEDSORTINGVALUE") {
+    return {
+      ...state,
+      selectedSortingValue: action.value,
+    };
+  }
 };
 
 const GamesProvider = ({ children }) => {
@@ -113,17 +120,21 @@ const GamesProvider = ({ children }) => {
     dispatchGamesAction({ type: "FETCHERROR", error: error });
   };
 
+  const setSelectedSortingValue = (value) => {
+    dispatchGamesAction({ type: "SELECTEDSORTINGVALUE", value: value });
+  };
+
   const gamesContext = {
     games: gamesState.games,
     loading: gamesState.loading,
     error: gamesState.error,
     filteredGames: gamesState.filteredGames,
     firstLetters: gamesState.firstLetters,
-    gamesToFirstLetter: gamesState.gamesToFirstLetter,
     searchValue: gamesState.searchValue,
     stateGames: gamesState.stateGames,
     genreGames: gamesState.genreGames,
     duplicateElements: gamesState.duplicateElements,
+    selectedSortingValue: gamesState.selectedSortingValue,
     setAllGames,
     setFilteredGames,
     setFirstLetters,
@@ -132,6 +143,7 @@ const GamesProvider = ({ children }) => {
     setGenreGames,
     setDuplicateElements,
     fetchError,
+    setSelectedSortingValue,
   };
 
   return (

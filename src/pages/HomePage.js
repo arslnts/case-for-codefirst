@@ -8,16 +8,19 @@ import Games from "../components/games/Games";
 import GamesContext from "../store/games-context";
 import fetchData from "../helper/fetchData";
 import Spinner from "../components/spinner/Spinner";
+import { sortingFunc, sortingLetters } from "../helper/sorting";
 
 const HomaPage = () => {
   const ctx = useContext(GamesContext);
+  let selectedSortingValue = ctx.selectedSortingValue;
+
+  const filteredGames = sortingFunc(ctx.filteredGames);
 
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [checkedGenres, setCheckedGenres] = useState([]);
   const [checkedStates, setCheckedStates] = useState([]);
   let content;
   useEffect(() => {
-    console.log("useeffect run");
     setIsDataLoading(true);
 
     fetchData("games.json")
@@ -25,27 +28,32 @@ const HomaPage = () => {
         ctx.setAllGames(data);
         ctx.setFirstLetters(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => ctx.fetchError(error));
 
     setIsDataLoading(false);
-  }, [setIsDataLoading]);
+  }, [ctx.games]);
 
   const getContent = (searchValue) => {
-    //Array from eklenecek
     content = searchValue.map((letter, i) => <Games key={i} letter={letter} />);
     return content;
   };
 
-  if (!ctx.searchValue && ctx.filteredGames.length > 0) {
+  if (!isDataLoading) {
+    content: <p>ctx.error</p>;
+  }
+
+  if (!ctx.searchValue && filteredGames.length > 0) {
     let letters = new Set();
-    ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
+    filteredGames.map((g) => letters.add(g.name.charAt(0)));
     let newLetters = Array.from(letters);
+    sortingLetters(newLetters, selectedSortingValue);
     getContent(newLetters);
-  } else if (ctx.searchValue && ctx.filteredGames.length > 0) {
+  } else if (ctx.searchValue && filteredGames.length > 0) {
     let searchValue = ctx.searchValue;
     let letters = new Set();
-    ctx.filteredGames.map((g) => letters.add(g.name.charAt(0)));
+    filteredGames.map((g) => letters.add(g.name.charAt(0)));
     let newLetters = Array.from(letters).map((v) => v.toLowerCase());
+    sortingLetters(newLetters, selectedSortingValue);
 
     if (newLetters.includes(searchValue.toLowerCase())) {
       getContent([searchValue]);
@@ -53,25 +61,24 @@ const HomaPage = () => {
       searchValue = "";
       getContent([searchValue]);
     }
-  } else if (ctx.searchValue && !ctx.filteredGames.length > 0) {
-    console.log("----run-son1----");
+  } else if (ctx.searchValue && ctx.filteredGames.length === 0) {
     let searchValue = ctx.searchValue;
-    console.log(searchValue);
 
-    // Tipi kontrol edilecek
-    const newGames = Object.values(ctx.games).filter((g) =>
+    let newGames = Object.values(ctx.games).filter((g) =>
       g.name.toLowerCase().startsWith(searchValue)
     );
-    console.log("---newGames---", newGames);
+    newGames = sortingFunc(newGames, selectedSortingValue);
 
     if (newGames.length > 0) {
-      getContent([searchValue]);
+      getContent([searchValue].sort());
     } else {
       searchValue = "";
-      getContent([searchValue]);
+      getContent([searchValue].sort());
     }
   } else {
     let searchValue = [...ctx.firstLetters];
+    selectedSortingValue = selectedSortingValue ? selectedSortingValue : "AZ";
+    sortingLetters(searchValue, selectedSortingValue);
     getContent(searchValue);
   }
 
@@ -81,11 +88,7 @@ const HomaPage = () => {
   const getCheckedGenres = (genre) => {
     setCheckedGenres([...checkedGenres, genre]);
   };
-  console.log("stateGames", ctx.stateGames);
-  console.log("genreGames", ctx.genreGames);
-  console.log("filtered Games", ctx.filteredGames);
-  console.log("error", ctx.error);
-  // console.log("duplicate", ctx.duplicateElements);
+
   return (
     <Layout>
       <div className="homepage-container">

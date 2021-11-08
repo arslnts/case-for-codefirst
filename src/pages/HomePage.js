@@ -15,14 +15,13 @@ const HomaPage = () => {
   let selectedSortingValue = ctx.selectedSortingValue;
 
   const filteredGames = sortingFunc(ctx.filteredGames);
-
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [checkedGenres, setCheckedGenres] = useState([]);
   const [checkedStates, setCheckedStates] = useState([]);
   let content;
+
   useEffect(() => {
     setIsDataLoading(true);
-
     fetchData("games.json")
       .then((data) => {
         ctx.setAllGames(data);
@@ -31,7 +30,7 @@ const HomaPage = () => {
       .catch((error) => ctx.fetchError(error));
 
     setIsDataLoading(false);
-  }, [ctx.games]);
+  }, [ctx]);
 
   const getContent = (searchValue) => {
     content = searchValue.map((letter, i) => <Games key={i} letter={letter} />);
@@ -39,7 +38,7 @@ const HomaPage = () => {
   };
 
   if (!isDataLoading) {
-    content: <p>ctx.error</p>;
+    content = <p>ctx.error</p>;
   }
 
   if (!ctx.searchValue && filteredGames.length > 0) {
